@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31613.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "yuroca.common", "yuroca.common\yuroca.common.csproj", "{DC37BCE6-A039-4D77-A49C-52155E422CC5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "yuroca.common", "yuroca.common\yuroca.common.csproj", "{DC37BCE6-A039-4D77-A49C-52155E422CC5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "yuroca.funtions", "yuroca.funtions\yuroca.funtions.csproj", "{B31D5970-BCAB-4993-9A26-0F2F849E4CAD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "yuroca.funtions", "yuroca.funtions\yuroca.funtions.csproj", "{B31D5970-BCAB-4993-9A26-0F2F849E4CAD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "yuroca.test", "yuroca.test\yuroca.test.csproj", "{D6A276C0-8626-4EDB-A8E5-0427E943BBBC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "yuroca.test", "yuroca.test\yuroca.test.csproj", "{D6A276C0-8626-4EDB-A8E5-0427E943BBBC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

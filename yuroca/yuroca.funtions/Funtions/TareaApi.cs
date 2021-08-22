@@ -110,5 +110,92 @@ namespace yuroca.funtions.Funtions
                 Result = tareaEntity
             });
         }
+
+         //Recuperate task- get all task
+        [FunctionName(nameof(GetAllTarea))]
+        public static async Task<IActionResult> GetAllTarea(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "tarea")] HttpRequest req,
+            [Table("tarea", Connection = "AzureWebJobsStorage")] CloudTable tareaTable,
+            ILogger log)
+            //Siempre inyectar request aunque no se necesite
+        {
+            log.LogInformation("Get all task received");
+
+            TableQuery<TareaEntity> query = new TableQuery<TareaEntity>();
+            TableQuerySegment<TareaEntity> tareas = await tareaTable.ExecuteQuerySegmentedAsync(query, null);
+
+            string message = "Retrieved all task";
+            log.LogInformation(message);
+
+            return new OkObjectResult(new Response
+            {
+                IsSuccess = true,
+                Message = message,
+                Result = tareas
+            });
+        }
+
+        //Recuperate task- get one element of the task
+        [FunctionName(nameof(GetTareaById))]
+        public static IActionResult GetTareaById(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "tarea/{id}")] HttpRequest req,
+            [Table("tarea", "TAREA", "{id}", Connection = "AzureWebJobsStorage")] TareaEntity tareaEntity,
+            string id,
+            ILogger log)
+        //Siempre inyectar request aunque no se necesite
+        {
+            log.LogInformation($"Get task: {id}, received");
+
+            if (tareaEntity == null)
+            {
+                return new BadRequestObjectResult(new Response
+                {
+                    IsSuccess = false,
+                    Message = "Tarea not found."
+                });
+            } 
+
+            string message = $"Task: {tareaEntity.RowKey}, retreived";
+            log.LogInformation(message);
+
+            return new OkObjectResult(new Response
+            {
+                IsSuccess = true,
+                Message = message,
+                Result = tareaEntity
+            });
+        }
+
+        [FunctionName(nameof(DeleteTarea))]
+        public static async Task<IActionResult> DeleteTarea(
+           [HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route = "tarea/{id}")] HttpRequest req,
+           [Table("tarea", "TAREA", "{id}", Connection = "AzureWebJobsStorage")] TareaEntity tareaEntity,
+           [Table("tarea", Connection = "AzureWebJobsStorage")] CloudTable tareaTable,
+           string id,
+           ILogger log)
+        //Siempre inyectar request aunque no se necesite
+        {
+            log.LogInformation($"Delete task: {id}, received");
+
+            if (tareaEntity == null)
+            {
+                return new BadRequestObjectResult(new Response
+                {
+                    IsSuccess = false,
+                    Message = "Tarea not found."
+                });
+            }
+
+            await tareaTable.ExecuteAsync(TableOperation.Delete(tareaEntity));
+            string message = $"Task delete: {tareaEntity.RowKey}, retreived";
+            log.LogInformation(message);
+
+            return new OkObjectResult(new Response
+            {
+                IsSuccess = true,
+                Message = message,
+                Result = tareaEntity
+            });
+        }
     }
 }
