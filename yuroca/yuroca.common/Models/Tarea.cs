@@ -2,7 +2,7 @@
 
 namespace yuroca.common.Models
 {
-    internal class Tarea
+    public class Tarea
     {
         public DateTime createdTime { get; set; }
         //Fecha
